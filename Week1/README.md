@@ -1,0 +1,9 @@
+1. False
+2. False
+3. True
+4. True
+5. True
+6. False
+7. False
+8. False
+9. True

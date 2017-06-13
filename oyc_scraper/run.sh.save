@@ -1,0 +1,7 @@
+!# usr/bin/env/bash
+
+python3 oyc_scraper.py
+rm -rf __pycache__
+clear
+pwd
+
