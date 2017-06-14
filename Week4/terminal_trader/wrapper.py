@@ -6,6 +6,7 @@ import json
 
 
 class Markit:
+
 	def __init__(self):
 		self.lookup_url = "http://dev.markitondemand.com/Api/v2/Lookup/json"
 		self.quote_url = "http://dev.markitondemand.com/Api/v2/Quote/json"
@@ -18,7 +19,6 @@ class Markit:
 		return json.loads(body)
 
 	def get_quote(self, string):
-
 		resource_path = '?symbol=' + string
 		x = requests.get(self.quote_url + resource_path)
 		soup = bs(x.content, 'html.parser')
@@ -26,6 +26,4 @@ class Markit:
 		return json.loads(body)
 
 
-
-
-
+#print(Markit().company_search("apple"))

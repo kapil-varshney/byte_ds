@@ -3,7 +3,7 @@
 import pandas as pd
 
 from wrapper import Markit
-import orm
+from orm import ORM
 
 
 def retrieve_company_data(company_name):
@@ -12,25 +12,62 @@ def retrieve_company_data(company_name):
     return company_data
 
 
-def retrieve_quote(ticker_symbol):
+def retrieve_market_data(ticker_symbol):
     markit_object = Markit()
     quote_data = markit_object.get_quote(ticker_symbol)
     return quote_data
 
 
 def identity_verified(username, password):
-    return orm.verify_identity(username, password)
+    return ORM.verify_identity(username, password)
 
 
 def username_available(username):
-    return orm.username_available(username)
+    return ORM.username_available(username)
 
 
 def create_user(username, password, name):
-    orm.create_users(username, password, name)
+    ORM.create_users(username, password, name)
+
+
+def retrieve_balance(username):
+    return ORM.retrieve_balance(username)
+
+
+def enough_balance(username, ticker_symbol, num_of_stocks):
+    if float(retrieve_market_data(ticker_symbol)['LastPrice'])*num_of_stocks < retrieve_balance(username):
+        return True
+    else:
+        return False
+
+
+def make_purchase(username, ticker_symbol, volume):
+    last_price = float(retrieve_market_data(ticker_symbol)['LastPrice'])
+    ORM.update_transactions('long', username, ticker_symbol, last_price, volume)
+    ORM.update_balance(username, (-1 * volume * last_price))
+    ORM.update_holdings(username, ticker_symbol, volume)
+
+
+def sell_stocks(username, ticker_symbol, volume):
+    last_price = float(retrieve_market_data(ticker_symbol)['LastPrice'])
+    ORM.update_transactions('short', username, ticker_symbol, last_price, volume)
+    ORM.update_balance(username, (volume * last_price))
+    ORM.update_holdings(username, ticker_symbol, (-1 * volume))
+
+
+def get_portfolio(username):
+    return ORM.fetch_portfolio(username)
+
+
 
 #retrieve_company_data("apple")
-#retrieve_quote("GOOG")
+#retrieve_market_data("GOOG")
 #print(identity_verified('kv','fj'))
 #print(username_available('as'))
 #create_users('uk', 'blah', 'Uday')
+#make_purchase("AAPL")
+#Markit.company_search("apple")
+#print(retrieve_balance('kapil'))
+#print(enough_balance('kapil', 'AAPL', 100))
+#make_purchase('kapil', 'AMZN', 10)
+#(get_portfolio('kapil'))

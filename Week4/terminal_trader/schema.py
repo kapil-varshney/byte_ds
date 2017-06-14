@@ -33,7 +33,7 @@ cur.execute("""
 cur.execute("""
             CREATE TABLE transactions(
             transact_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            buy_or_sell VARCHAR
+            buy_sell VARCHAR,
             symbol VARCHAR,
             transact_price FLOAT,
             quantity INTEGER,
