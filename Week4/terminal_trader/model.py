@@ -64,7 +64,7 @@ def get_portfolio(username):
 
 
 
-retrieve_company_data("abflkdfklm")
+#print(retrieve_company_data("abflkdfklm"))
 #retrieve_market_data("GOOG")
 #print(identity_verified('kv','fj'))
 #print(username_available('as'))

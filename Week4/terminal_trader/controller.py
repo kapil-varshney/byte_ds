@@ -71,7 +71,11 @@ class Controller:
         user_input = input()
 
         if user_input == '1':
-            print(cls.search_companies())
+            df = cls.search_companies()
+            if df.empty:
+                print("Invalid company or data not available")
+            else:
+                print(df)
             cls.tasks()
 
         elif user_input == '2':
@@ -116,7 +120,11 @@ class Controller:
     def buy(cls):
 
         df = cls.search_companies()
-        print(df)
+        if df.empty:
+            print("Invalid company or data not available")
+            cls.tasks()
+        else:
+            print(df)
 
         ticker_symbol = input("\nPlease enter the ticker of the stock you are interested in.\n")
         if ticker_symbol not in list(df['Symbol']):
@@ -125,6 +133,10 @@ class Controller:
 
         market_data = model.retrieve_market_data(ticker_symbol)
         print("The last price of", market_data['Symbol'], "is:", market_data['LastPrice'], "as of", market_data['Timestamp'])
+
+        if market_data['LastPrice'] == 0:
+            print("\nThis stock is worth nothing. Please select another stock.\n")
+            cls.buy()
 
         user_input = input("\nDo you want to proceed?\n1. Yes\n2. No (Go to the previous options)\n")
 
@@ -219,11 +231,12 @@ class Controller:
         print(df[df['symbol'] == 'GOOG']['quantity'])
 
 
-#Controller.buy()
-#Controller.tasks()
-#Controller.buy_stock('AAPL')
-#print(Controller.view_portfolio())
-#Controller.sell()
-#Controller.test()
+if __name__ == '__main__':
+    Controller.navigate()
 
-Controller.navigate()
+    # Controller.buy()
+    # Controller.tasks()
+    # Controller.buy_stock('AAPL')
+    # print(Controller.view_portfolio())
+    # Controller.sell()
+    # Controller.test()
