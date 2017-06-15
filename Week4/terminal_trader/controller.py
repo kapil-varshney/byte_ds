@@ -85,7 +85,11 @@ class Controller:
             cls.sell()
 
         elif user_input == '5':
-            print(cls.view_portfolio())
+            df = cls.view_portfolio()
+            if df.empty:
+                print("You don't hold any stocks\n")
+            else:
+                print(df)
             cls.tasks()
 
         elif user_input == '0':

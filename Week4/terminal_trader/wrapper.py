@@ -21,5 +21,5 @@ class Markit:
 		return json.loads(content)
 
 
-#print(Markit().company_search("apple"))
+#print(Markit().company_search("adkjnaflknlk"))
 #print(Markit().get_quote("AAPL"))
