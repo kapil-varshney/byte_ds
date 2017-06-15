@@ -114,7 +114,7 @@ class Controller:
         print(df)
 
         ticker_symbol = input("\nPlease enter the ticker of the stock you are interested in.\n")
-        if ticker_symbol not in list(df['symbol']):
+        if ticker_symbol not in list(df['Symbol']):
             print("Enter a valid ticker")
             cls.invalid_selection(cls.buy)
 
@@ -162,7 +162,7 @@ class Controller:
         print(df)
 
         ticker_symbol = input("Enter the ticker for the stock you want to sell: ")
-        if ticker_symbol not in list(df['symbol']):
+        if ticker_symbol not in list(df['Symbol']):
             print("You don't own that stock.")
             cls.invalid_selection(cls.sell)
 

@@ -27,3 +27,4 @@ class Markit:
 
 
 #print(Markit().company_search("apple"))
+#print(Markit().get_quote("AAPL"))

@@ -42,17 +42,21 @@ def enough_balance(username, ticker_symbol, num_of_stocks):
 
 
 def make_purchase(username, ticker_symbol, volume):
-    last_price = float(retrieve_market_data(ticker_symbol)['LastPrice'])
+    data = retrieve_market_data(ticker_symbol)
+    last_price = float(data['LastPrice'])
+    stock_name = data['Name']
     ORM.update_transactions('long', username, ticker_symbol, last_price, volume)
     ORM.update_balance(username, (-1 * volume * last_price))
-    ORM.update_holdings(username, ticker_symbol, volume)
+    ORM.update_holdings(username, ticker_symbol, stock_name, volume, last_price)
 
 
 def sell_stocks(username, ticker_symbol, volume):
-    last_price = float(retrieve_market_data(ticker_symbol)['LastPrice'])
+    data = retrieve_market_data(ticker_symbol)
+    last_price = float(data['LastPrice'])
+    stock_name = data['Name']
     ORM.update_transactions('short', username, ticker_symbol, last_price, volume)
     ORM.update_balance(username, (volume * last_price))
-    ORM.update_holdings(username, ticker_symbol, (-1 * volume))
+    ORM.update_holdings(username, ticker_symbol, stock_name, (-1 * volume), last_price)
 
 
 def get_portfolio(username):

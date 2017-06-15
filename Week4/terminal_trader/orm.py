@@ -72,27 +72,27 @@ class ORM:
         cls.conn.commit()
 
     @classmethod
-    def update_holdings(cls, username, symbol, volume):
+    def update_holdings(cls, username, symbol, stock_name, volume, last_price):
 
         cls.cur.execute('SELECT quantity FROM stocks where user = ? AND symbol = ?', (username, symbol,))
         holding_vol = cls.cur.fetchone()
 
         if holding_vol is None:
-            cls.cur.execute("""INSERT INTO stocks(symbol, quantity, user) 
-                                            VALUES(?,?,?)""",
-                            (symbol, volume, username,))
+            cls.cur.execute("""INSERT INTO stocks(symbol, stock_name, quantity, user, last_price) 
+                                            VALUES(?,?,?,?,?)""",
+                            (symbol, stock_name, volume, username, last_price,))
         else:
             new_vol = holding_vol[0] + volume
             if new_vol == 0:
-                cls.cur.execute('DELETE FROM stocks WHERE user = ? AND symbol = ?', (new_vol, username, symbol,))
+                cls.cur.execute('DELETE FROM stocks WHERE user = ? AND symbol = ?', (username, symbol,))
             else:
-                cls.cur.execute('UPDATE stocks SET quantity = ? WHERE user = ? AND symbol = ?',
-                                (new_vol, username, symbol,))
+                cls.cur.execute('UPDATE stocks SET quantity = ?, last_price = ? WHERE user = ? AND symbol = ?',
+                                (new_vol, last_price, username, symbol,))
         cls.conn.commit()
 
     @classmethod
     def fetch_portfolio(cls, username):
-        query = "SELECT symbol, quantity FROM stocks WHERE user = '{}'".format(username)
+        query = "SELECT symbol, stock_name, quantity, last_price FROM stocks WHERE user = '{}'".format(username)
         return psql.read_sql_query(query, cls.conn)
 
 
@@ -111,5 +111,5 @@ class ORM:
 #ORM.update_transactions('long', 'kapil', 'GOOG', 1000, 10)
 #ORM.update_balance('kapil', -1000)
 #print(ORM.retrieve_balance('kapil'))
-#ORM.update_holdings('long', 'kapil', 'GOOG', 1000, 20)
+#ORM.update_holdings('kapil', 'NFLX', 20, 101.11)
 #print(ORM.fetch_portfolio('kapil'))
