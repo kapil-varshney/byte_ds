@@ -22,7 +22,6 @@ cur.execute("""
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             symbol VARCHAR,
             stock_name VARCHAR,
-            exchange VARCHAR,
             last_price FLOAT,
             quantity INTEGER,
             user VARCHAR,
