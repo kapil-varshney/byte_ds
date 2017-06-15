@@ -86,6 +86,7 @@ class Controller:
 
         elif user_input == '5':
             print(cls.view_portfolio())
+            cls.tasks()
 
         elif user_input == '0':
             cls.user_exit()
@@ -162,7 +163,7 @@ class Controller:
         print(df)
 
         ticker_symbol = input("Enter the ticker for the stock you want to sell: ")
-        if ticker_symbol not in list(df['Symbol']):
+        if ticker_symbol not in list(df['symbol']):
             print("You don't own that stock.")
             cls.invalid_selection(cls.sell)
 
@@ -217,8 +218,8 @@ class Controller:
 #Controller.buy()
 #Controller.tasks()
 #Controller.buy_stock('AAPL')
-Controller.navigate()
 #print(Controller.view_portfolio())
-
 #Controller.sell()
 #Controller.test()
+
+Controller.navigate()
