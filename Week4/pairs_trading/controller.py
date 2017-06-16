@@ -44,10 +44,6 @@ class Controller:
             print("\nStopped Scraping\n")
 
     @classmethod
-    def stop_scraping(cls):
-        pass
-
-    @classmethod
     def view_data(cls):
 
         user_input = input("\n1. Google\n2. Microsoft\n3. Previous Menu\n")

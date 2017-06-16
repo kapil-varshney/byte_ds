@@ -73,3 +73,24 @@ class ORM:
     def close_conn(cls):
         cls.cur.close()
         cls.conn.close()
+
+
+
+    @classmethod
+    def update_goog_df(cls, data):
+        cls.cur.execute("INSERT INTO google VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        (data['LastPrice'],
+                         data['Change'],
+                         data['ChangePercent'],
+                         data['Timestamp'],
+                         data['MSDate'],
+                         data['MarketCap'],
+                         data['Volume'],
+                         data['ChangeYTD'],
+                         data['ChangePercentYTD'],
+                         data['High'],
+                         data['Low'],
+                         data['Open'],)
+                        )
+
+        cls.conn.commit()

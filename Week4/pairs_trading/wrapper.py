@@ -11,8 +11,17 @@ class Scraper:
 
     def get_quote(self, symbol):
         path = self.quote_url + symbol
-        content_ = requests.get(path).content
-        obj = json.loads(str(content_, 'utf-8'))
+
+        try:
+            content_ = requests.get(path).content
+        except:
+            return {'Status': 'FAILURE'}
+
+        try:
+            obj = json.loads(str(content_, 'utf-8'))
+        except:
+            return {'Status': 'FAILURE'}
+
         return obj
 
 
