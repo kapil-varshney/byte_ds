@@ -24,8 +24,10 @@ class Model:
             if msft_quote['Status'] == 'SUCCESS':
                 ORM.update_msft(msft_quote)
 
-            #time.sleep(30)
-            cls.scraper_on = False
+            time.sleep(5)
+            print(time.ctime())
+            #cls.scraper_on = False
+
 
     @classmethod
     def get_data(cls, company_name):

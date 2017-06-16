@@ -16,8 +16,7 @@ class Controller:
 
         print("\nWelcome to the Pairs Trading platform...\n")
         print("1. Start Scraping")
-        print("2. Stop Scraping")
-        print("3. View Data")
+        print("2. View Data")
         print("0. Exit")
         user_input = input()
 
@@ -25,9 +24,6 @@ class Controller:
             cls.start_scraping()
 
         elif user_input == '2':
-            cls.stop_scraping()
-
-        elif user_input == '3':
             cls.view_data()
 
         elif user_input == '0':
@@ -35,13 +31,17 @@ class Controller:
 
         else:
             print("\nPlease enter a valid selection")
-            cls.navigate()
+
+        cls.navigate()
 
     @classmethod
     def start_scraping(cls):
-        Model.scrape()
-        cls.navigate()
-        pass
+        print("\nPress Ctrl+C anytime to stop scraping\n")
+        print("\nRetrieving information from Markit API...\n")
+        try:
+            Model.scrape()
+        except KeyboardInterrupt:
+            print("\nStopped Scraping\n")
 
     @classmethod
     def stop_scraping(cls):
