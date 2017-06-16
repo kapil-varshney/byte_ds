@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
 from wrapper import Scraper
+from orm import ORM
 
 import pandas as pd
+import time
 
 
 class Model:
@@ -17,13 +19,18 @@ class Model:
             msft_quote = Scraper().get_quote('MSFT')
 
             if goog_quote['Status'] == 'SUCCESS':
-                pass
+                ORM.update_goog(goog_quote)
 
             if msft_quote['Status'] == 'SUCCESS':
-                pass
+                ORM.update_msft(msft_quote)
 
+            #time.sleep(30)
             cls.scraper_on = False
 
+    @classmethod
+    def get_data(cls, company_name):
+        df = ORM.retrieve_tables(company_name)
+        return df
 
 if __name__ == "__main__":
     Model.scrape()

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import model
+from model import Model
 
 
 class Controller:
@@ -14,6 +14,7 @@ class Controller:
     @classmethod
     def navigate(cls):
 
+        print("\nWelcome to the Pairs Trading platform...\n")
         print("1. Start Scraping")
         print("2. Stop Scraping")
         print("3. View Data")
@@ -38,6 +39,8 @@ class Controller:
 
     @classmethod
     def start_scraping(cls):
+        Model.scrape()
+        cls.navigate()
         pass
 
     @classmethod
@@ -46,9 +49,30 @@ class Controller:
 
     @classmethod
     def view_data(cls):
-        pass
 
+        user_input = input("\n1. Google\n2. Microsoft\n3. Previous Menu\n")
+        if user_input == '1':
+            company_name = 'google'
+            print('\n', cls.goog_name, '\n')
 
+        elif user_input == '2':
+            company_name = 'microsoft'
+            print('\n', cls.msft_name, '\n')
+
+        elif user_input == '3':
+            cls.navigate()
+
+        else:
+            print("Please enter a valid selection")
+            cls.invalid_selection(cls.view_data)
+
+        df = Model.get_data(company_name)
+        if df.empty is True:
+            print("No stored data available")
+        else:
+            print(df)
+
+        cls.view_data()
 
 
     @classmethod
