@@ -12,7 +12,7 @@ sh -c 'echo "maxretry = 3" >> /etc/fail2ban/jail.local'
 
 sh -c 'echo "destemail = kvarshney.14@gmail.com" >> /etc/fail2ban/jail.local'
 
-sh -c 'echo "sendername = security@droplet6" >> /etc/fail2ban/jail.local'
+sh -c 'echo "sendername = security@$VPS_NAME" >> /etc/fail2ban/jail.local'
 
 sh -c 'echo "banaction = iptables-multiport" >> /etc/fail2ban/jail.local'
 

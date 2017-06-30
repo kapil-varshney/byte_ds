@@ -457,4 +457,4 @@ git clone git://github.com/katabasis/katabasis.git
 
 ssh -p 33333 kapilv@139.59.7.109
 
-
+sudo su - root
