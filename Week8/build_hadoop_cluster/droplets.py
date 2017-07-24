@@ -91,15 +91,16 @@ def create_multiple_droplets(n):
     print(vps_ip)
     print(vps_name)
 
+"""
     for j in range(int(n)):
         ssh_port += 1
         print(vps_ip[j], vps_name[j], username, password, ssh_port)
         build_server(vps_ip[j], vps_name[j], username, password, ssh_port)
-
+"""
 
 if __name__ == '__main__':
 
-    #delete_droplet('mock')
-    n = input("\nHow many droplets do you want to make?\n")
-    create_multiple_droplets(n)
+    delete_droplet('hadoop-cluster')
+    #n = input("\nHow many droplets do you want to make?\n")
+    #create_multiple_droplets(n)
     delete_droplet('to_delete')
